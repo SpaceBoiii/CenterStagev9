@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
  */
 
 @Autonomous(name="AutoRR", group="Concept")
-
+@Disabled
 public class vvAutoDriveByRR extends LinearOpMode {
     /**This needs to be replaced with usage of our vvHardware class and create a new method to drive by encoder
      * need to create the appropriate variables and structure this class per your pseudo code
@@ -64,13 +64,13 @@ public class vvAutoDriveByRR extends LinearOpMode {
         vvdrive.setPoseEstimate(startPose);
 
         TrajectorySequence purpleDropTop = vvdrive.trajectorySequenceBuilder(startPose)
-                .forward(24)
+                .forward(48)
                 .back(4)
                 .waitSeconds(1)
                 .build();
 
         TrajectorySequence yellowDropTop = vvdrive.trajectorySequenceBuilder(purpleDropTop.end())
-                .turn(Math.toRadians(-90))
+                .turn(Math.toRadians(90))
                 .forward(48)
                 .build();
 
@@ -91,7 +91,9 @@ public class vvAutoDriveByRR extends LinearOpMode {
         telemetry.addLine("Running...");
         telemetry.update();
         vvdrive.followTrajectorySequence(purpleDropTop);
-        robot.extractPurple(1);
+        robot.rightWheel.setPower(-0.9);
+        sleep(1000);
+        robot.rightWheel.setPower(0);
         sleep(1000);
         robot.armPos(armLow,armEPower); //Drive location
         robot.movePickUp(autonPickupLow,pickUpPwr);
